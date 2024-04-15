@@ -4,12 +4,13 @@ const messageInput = document.getElementById("message-input");
 const result = document.getElementById("result");
 const checkMessageButton = document.getElementById("check-message-btn");
 
-const helpRegex = /please help/i;
-
+const helpRegex = /please help|assist me/i;
+const dollarRegex = /[0-9] dollars/i
+const denyList = [helpRegex,dollarRegex];
 
 /**EVENTOS Y FUNCIONES */
 //.match El metodo match se le pasa como argumento una expresion regular y indica si la cadena coincide con esta.
-const isSpam = (msg) => msg.match(helpRegex);
+const isSpam = (msg) => denyList.some(regex => regex.test(msg));
 
 checkMessageButton.addEventListener("click", ()=>{
     if (messageInput.value == "") {
